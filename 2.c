@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(){
+int main() {
     int a, b, c, d;
     int *pa, *pb, *pc, *pd;
 
