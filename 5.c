@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int main() {
     char str[69], **pstr;
@@ -10,13 +11,17 @@ int main() {
     for(int i = 0; i < 5; i++)
     {
         scanf("%[^\n]%*c", str);
-        pstr[i] = (char) malloc (sizeof(char) * strlen(str));
+        pstr[i] = (char *) malloc (sizeof(char) * strlen(str));
         for(int j = 0; j < strlen(str); j++) {
             pstr[i][j] = str[j];
         }
+
         pstr[i][strlen(str)] = '\0';
     }
 
+    for(int i = 0; i < 5; i++) {
+        printf("%s\n", pstr[i]);
+    }
 
     return 0;
 }
