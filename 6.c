@@ -14,8 +14,8 @@ typedef struct {
 void read_secret_word(Game *g) {
     char word[101];
 
-    printf("Player 1, write the secret word\nPlease use at max 100 letters\n");
-    scanf("%[^\n]%*c", word);
+    printf("Player 1, write the secret word\n");
+    scanf(" %100[^\n]%*c", word);
     system("clear");
 
     g->word_len = strlen(word);
