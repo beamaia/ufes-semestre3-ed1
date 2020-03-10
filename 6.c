@@ -21,7 +21,11 @@ void read_secret_word(Game *g) {
     g->word_len = strlen(word);
     g->errors = 0;
     g->letters_correct = 0;
-    g->word = strdup(word);
+    g->word = (char *) malloc(sizeof(char) * g->word_len);
+
+    for(int i = 0; i < g->word_len; i++) {
+        g->word[i] = toupper(word[i]);
+    }
 }
 
 void create_tabletop(Game *g) {
@@ -31,79 +35,70 @@ void create_tabletop(Game *g) {
     }
 }
 
-unsigned int letter_in_word(char letter, Game *g) {
-    for(int i = 0; i < g->word_len; i++) {
-        if(letter == g->word[i]) 
-            return 1;
-    }
-
-    return 0;
-}
-
-unsigned int letter_on_board(char letter, Game *g) {
-    for(int i = 0; i < g->word_len; i++) {
-        if(letter == g->tabletop[i]) {
-            printf("You have already guessed this letter");
-            return 1;
-        }
-    }
-
-    return 0;
-}
-
 int uncover_letter(char letter, Game *g) {
-    int sit = 0;
+    int situation = 0;
     for(int i = 0; i < g->word_len; i++) {
         if(letter == g->word[i]) {
-            g->tabletop[i] = letter;
-            sit = 1;
+            if(letter == g->tabletop[i]) {
+                printf("You have already guessed this letter!\n");
+                break;
+            } else {
+                g->tabletop[i] = letter;
+                situation = 1;
+                g->letters_correct++;
+            }
         }
-
-        printf("%c ", g->tabletop[i]);
     }
-
-    return sit;
+    return situation;
 }
 
 void guess_letter(Game *g) {
     char letter;
     printf("Guess a letter: ");
-    scanf("%c", &letter);
+    scanf("%c%*c", &letter);
     letter = toupper(letter);
-    
+
+    if(!uncover_letter(letter, g)) {
+            g->errors++;
+    }
+}
+
+void show_tabletop(Game *g) {
     for(int i = 0; i < g->word_len; i++) {
-        if(!letter_in_word(letter, g)){
-            if(!uncover_letter(letter, g)) {
-                g->errors++;
-            }
-        }
+        printf("%c ", g->tabletop[i]);
     }
     printf("\n");
 }
 
 void show_errors(Game *g) {
-    printf("Errors %d/5\n", g->errors);
+    printf("Errors %d/5\n\n", g->errors);
+}
+
+void ending_message(Game *g) {
+    if(g->letters_correct == g->word_len) {
+        printf("Congrats! You won the game :)\n");
+    }
+    else if(g->errors == 5) {
+        printf("Oh no! You lost the game :(\n");
+    }
 }
 
 void hangman(Game *g) {
     for(int i = 0; g->letters_correct < g->word_len && g->errors < 5;i++) {
         guess_letter(g);
+        show_tabletop(g);
         show_errors(g);
+        ending_message(g);
     }
-
 }
 
 void free_game(Game *g) {
-    for(int i = 0; i < g->word_len; i++) {
-        free(g->word[i]);
-        free(g->tabletop[i]);
-    }
-
+    free(g->word);
+    free(g->tabletop);
     free(g);
 }
 
 int main() {
-    char word[101];
     Game *game = (Game *) malloc(sizeof(Game));
 
     read_secret_word(game);
