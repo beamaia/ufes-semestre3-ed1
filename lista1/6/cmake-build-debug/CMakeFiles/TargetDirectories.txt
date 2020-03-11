@@ -1,0 +1,3 @@
+/home/bmsmaia/ufes/semestre-03/ed1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/bmsmaia/ufes/semestre-03/ed1/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/bmsmaia/ufes/semestre-03/ed1/cmake-build-debug/CMakeFiles/ed1.dir

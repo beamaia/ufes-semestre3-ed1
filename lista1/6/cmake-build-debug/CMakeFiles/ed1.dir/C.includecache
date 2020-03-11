@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/bmsmaia/ufes/semestre-03/ed1/6.c
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+ctype.h
+-
+
