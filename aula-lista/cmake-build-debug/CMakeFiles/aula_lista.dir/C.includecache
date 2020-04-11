@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/bea/ufes/semestre-03/ed1/aula-lista/Aluno.h
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+
+/home/bea/ufes/semestre-03/ed1/aula-lista/ListaComSentinela.h
+Aluno.h
+/home/bea/ufes/semestre-03/ed1/aula-lista/Aluno.h
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+
+/home/bea/ufes/semestre-03/ed1/aula-lista/main.c
+stdio.h
+-
+ListaComSentinela.h
+/home/bea/ufes/semestre-03/ed1/aula-lista/ListaComSentinela.h
+

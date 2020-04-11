@@ -1,0 +1,1 @@
+/usr/bin/cc -g   CMakeFiles/aula2.dir/matriz.c.o CMakeFiles/aula2.dir/progmat.c.o  -o aula2 

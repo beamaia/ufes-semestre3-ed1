@@ -1,0 +1,1 @@
+/usr/bin/cc -g   CMakeFiles/aula_lista.dir/Aluno.c.o CMakeFiles/aula_lista.dir/ListaComSentinela.c.o CMakeFiles/aula_lista.dir/main.c.o  -o aula_lista 
