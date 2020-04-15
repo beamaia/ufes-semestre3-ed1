@@ -24,7 +24,7 @@ Lista * inicializaLista() {
 }
 
 //No inicio
-void insereLista(Lista* lista, Aluno al) {
+void insereListaInicio(Lista* lista, Aluno al) {
     Celula* novaCelula = (Celula*) malloc(sizeof(Celula));
     novaCelula->al = al;
 
@@ -33,6 +33,21 @@ void insereLista(Lista* lista, Aluno al) {
     lista->prim = novaCelula;
 
     if(lista->ult == NULL) {
+        lista->ult = novaCelula;
+    }
+}
+
+//No final
+void insereListaFinal(Lista* lista, Aluno al) {
+    Celula* novaCelula = (Celula*) malloc(sizeof(Celula));
+    novaCelula->al = al;
+    novaCelula->prox = NULL;
+    
+    if (lista->prim == NULL) {
+        lista->prim = novaCelula;
+        lista->ult = lista->prim;
+    } else {
+        lista->ult->prox = novaCelula;
         lista->ult = novaCelula;
     }
 }

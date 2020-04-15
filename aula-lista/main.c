@@ -9,10 +9,10 @@
 //    Aluno joao = inicializaAluno(999, "Joao", 8); //primeiro aluno da lista
 //
 //    Lista* lista = inicializaLista();
-//    insereLista(lista, patricia);
-//    insereLista(lista, alice);
-//    insereLista(lista, maria);
-//    insereLista(lista, joao);
+//    insereListaInicio(lista, patricia);
+//    insereListaInicio(lista, alice);
+//    insereListaInicio(lista, maria);
+//    insereListaInicio(lista, joao);
 //
 //    printf("Imprimindo a lista:\n");
 //    imprimeLista(lista);
@@ -21,7 +21,7 @@
 //    printf("Imprimindo a lista\n");
 //    imprimeLista(lista);
 //
-//    insereLista(lista, alice);
+//    insereListaInicio(lista, alice);
 //    printf("Imprimindo a lista\n");
 //    imprimeLista(lista);
 //
@@ -36,9 +36,9 @@
 //    Aluno maria = inicializaAluno(21, "Maria", 9);
 //
 //    Lista* lista = inicializaLista();
-//    insereLista(lista, patricia);
-//    insereLista(lista, alice);
-//    insereLista(lista, maria);
+//    insereListaInicio(lista, patricia);
+//    insereListaInicio(lista, alice);
+//    insereListaInicio(lista, maria);
 //
 //    printf("Imprimindo a lista:\n");
 //    imprimeLista(lista);
@@ -47,7 +47,7 @@
 //    printf("\nImprimindo a lista\n");
 //    imprimeLista(lista);
 //
-//    insereLista(lista, patricia);
+//    insereListaInicio(lista, patricia);
 //    printf("\nImprimindo a lista\n");
 //    imprimeLista(lista);
 //
@@ -64,21 +64,21 @@ int main() {
     Aluno retirado;
 
     Lista* lista = inicializaLista();
-    insereLista(lista, patricia);
-    insereLista(lista, alice);
-    insereLista(lista, maria);
+    insereListaFinal(lista, patricia);
+    insereListaFinal(lista, alice);
+    insereListaFinal(lista, maria);
 
     printf("Imprimindo a lista:\n");
     imprimeLista(lista);
 
-    retirado = retiraLista(lista, "Maria");
+    retirado = retiraLista(lista, "Alice");
     printf("\nAluno retirado:\n");
     imprimeAluno(retirado);
 
     printf("\nImprimindo a lista\nlu");
     imprimeLista(lista);
 
-    insereLista(lista, maria);
+    insereListaFinal(lista, alice);
     printf("\nImprimindo a lista\n");
     imprimeLista(lista);
 
@@ -90,7 +90,7 @@ int main() {
 //int main() {
 //    Aluno patricia = inicializaAluno(123, "Patricia", 10);
 //    Lista* lista = inicializaLista();
-//    insereLista(lista, patricia);
+//    insereListaInicio(lista, patricia);
 //
 //    printf("Imprimindo a lista:\n");
 //    imprimeLista(lista);
@@ -99,7 +99,7 @@ int main() {
 //    printf("\nImprimindo a lista\n");
 //    imprimeLista(lista);
 //
-//    insereLista(lista, patricia);
+//    insereListaInicio(lista, patricia);
 //    printf("\nImprimindo a lista\n");
 //    imprimeLista(lista);
 //
@@ -119,7 +119,7 @@ int main() {
 //    printf("\nImprimindo a lista\n");
 //    imprimeLista(lista);
 //
-//    insereLista(lista, patricia);
+//    insereListaInicio(lista, patricia);
 //    printf("\nImprimindo a lista\n");
 //    imprimeLista(lista);
 //

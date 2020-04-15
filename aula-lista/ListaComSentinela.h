@@ -7,7 +7,8 @@
 
     typedef struct lista Lista;
     Lista * inicializaLista();
-    void insereLista(Lista* lista, Aluno al);
+    void insereListaInicio(Lista* lista, Aluno al);
+    void insereListaFinal(Lista* lista, Aluno al);
     void imprimeLista(Lista* lista);
     Aluno retiraLista(Lista* lista, char* chave);
     void destroiLista(Lista* lista);

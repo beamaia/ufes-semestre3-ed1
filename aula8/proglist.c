@@ -26,17 +26,17 @@ int main()
     Insere(joao, lista);
     Insere(catarina, lista);
 
-    //Imprime a lista com todos os alunos
+    // //Imprime a lista com todos os alunos
     Imprime(lista);
 
-    //Retira a maria da lista e imprime
+    // //Retira a maria da lista e imprime
     TipoItem* retirado = Retira(lista, 123);
     if (retirado != NULL)
     	Imprime(lista);
     else
     	printf ("Não foi possivel retirar o aluno de matrícula 123");
 
-    //Retira o Joao da lista e imprime
+    // //Retira o Joao da lista e imprime
     retirado = Retira(lista, 34);
     if (retirado != NULL)
     	Imprime(lista);
@@ -44,14 +44,15 @@ int main()
     	printf ("Não foi possivel retirar o aluno de matrícula 34");
 
 
-     //Tenta retirar com um número de matrícula inexistente
-      retirado = Retira(lista, 555);
-      if (retirado != NULL)
-      	Imprime(lista);
-      else
-      	printf ("Não foi possivel retirar o aluno de matrícula 555");
-     
+    //  //Tenta retirar com um número de matrícula inexistente
+    retirado = Retira(lista, 555);
+    if (retirado != NULL)
+    Imprime(lista);
+    else
+    printf ("Não foi possivel retirar o aluno de matrícula 555\n");
+    
 
-      lista = Libera(lista);       
-
+    lista = Libera(lista);     
+      
+    return(0);
 }
