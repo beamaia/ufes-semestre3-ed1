@@ -2,12 +2,22 @@
 #include <stdlib.h>
 #include <string.h>
 #include "produto.h"
+#include "pedido.h"
 
+typedef struct cel Celula;
+struct cel {
+    TProduto *prod;
+    Celula *prox;
+};
 /* Define o tipo TPedido (tipo opaco). Estrutura interna deste tipo eh definida na implementacao do TAD.
  * Trata-se da sentinela da lista e deve conter as seguintes informacoes:
  * Dono do pedido (char*) e os campos prim e ult da sentinela
  */
-typedef struct pedido TPedido;
+struct pedido {
+    char *dono;
+    Celula *prim, 
+           *ult;
+};
 
 /*----------------------------------------------------------------------
  * Inicializa o pedido de um cliente (ou seja, a sentinela!)
@@ -16,7 +26,16 @@ typedef struct pedido TPedido;
  * pre-condicao: nome devidamente alocado
  * pos-condicao: Pedido inicializado contendo o nome como informado
  *---------------------------------------------------------------------- */
-TPedido* InicPedido (char* dono);
+TPedido* InicPedido (char* dono) {
+    TPedido * pedido = (TPedido *) malloc (sizeof(TPedido));
+    pedido->dono = (char *) malloc (sizeof(char) * (strlen(dono) + 1));
+    strcpy(pedido->dono, dono);
+    pedido->prim = NULL;
+    pedido->ult = NULL;
+
+    return pedido;
+}
+
 
 /*----------------------------------------------------------------------
  * Inclui um produto no pedido de um cliente (ou seja, a sentinela!). Inserir ao FINAL!
@@ -26,7 +45,19 @@ TPedido* InicPedido (char* dono);
  * pre-condicao: pedido e produto foram devidamente inicializados
  * pos-condicao: produto inserido no pedido OU lista inalterada (caso o produto ja esteja na lista)
  *----------------------------------------------------------------------*/
-void IncluiProdutoPedido (TPedido* pedido, TProduto* prod);
+void IncluiProdutoPedido (TPedido* pedido, TProduto* prod) {
+    Celula *novoPedido = (Celula*) malloc(sizeof(Celula));
+    novoPedido->prod = prod;
+    novoPedido->prox = NULL;
+
+    if (pedido->prim == NULL) {
+        pedido->prim = novoPedido;
+        pedido->ult = novoPedido;
+    } else {
+        pedido->ult->prox = novoPedido;
+        pedido->ult = novoPedido;
+    }
+}
 
 /*----------------------------------------------------------------------
  * Imprime todos os dados de um pedido (o dono seguido de todos os produtos e ingredientes)
@@ -36,7 +67,16 @@ void IncluiProdutoPedido (TPedido* pedido, TProduto* prod);
  * pre-condicao: pedido devidamente inicializado
  * pos-condicao: funcao nao alterad os dados do pedido
  *----------------------------------------------------------------------*/
-void ImprimePedido (TPedido* pedido);
+void ImprimePedido (TPedido* pedido) {
+    printf("Dono: %s\n", pedido->dono);
+    if(pedido->prim == NULL) {
+        printf("Nao ha produtos neste pedido!\n");
+    } else {
+        for(Celula *aux = pedido->prim; aux != NULL; aux = aux->prox) {
+            ImprimeIngredientes(aux->prod);
+        }
+    }
+}
 
 /*----------------------------------------------------------------------
  * Retira a unica ocorrência do produto (caso ele exista na lista).
@@ -46,7 +86,38 @@ void ImprimePedido (TPedido* pedido);
  * pre-condicao: pedido e produto devidamente inicializados
  * pos-condicao: pedido nao contem o produto
  *----------------------------------------------------------------------*/
-void RetiraProdutoPedido (TPedido* pedido, char* prod);
+void RetiraProdutoPedido (TPedido* pedido, char* prod) {
+    if (pedido == NULL) {
+        return;
+    } 
+
+    TProduto *produto;
+    Celula *aux = pedido->prim, *anterior;
+
+    while (aux != NULL && (strcmp(prod, RetornaNome(aux->prod)))){
+        anterior = aux;
+        aux = aux->prox;
+    }
+
+    if (aux == NULL){
+        return;
+    }
+
+    produto = aux->prod;
+    if (aux == pedido->prim && aux == pedido->ult) { //Unico elemento
+        pedido->prim = NULL;
+        pedido->ult = NULL;
+    } else if (aux == pedido->prim){ //Primeiro elemento
+        pedido->prim = aux->prox;
+    } else if (aux == pedido->ult) { //Ultimo elemento
+        anterior->prox = NULL;
+        pedido->ult = anterior;
+    } else { //No meio da lista de produtos
+        anterior->prox = aux->prox;
+    }
+
+    // free(aux);
+}
 
 //A função envia pedido verifica se há restrição calórica ou restrição alimentar
 //Se estiver tudo ok, retira o pedido da lista (libera o pedido, porém não libera o produto) e retorna 1
@@ -62,4 +133,33 @@ void RetiraProdutoPedido (TPedido* pedido, char* prod);
  * pre-condicao: pedido devidamente inicializado e strings validas
  * pos-condicao: se houver problema com as restricoes, o pedido deve ficar inalterado. se estiver tudo ok com as restricoes, deve destruir o pedido, porem os produtos nao devem ser liberados (pois podem estar em outros pedidos, de outras pessoas).
  *----------------------------------------------------------------------*/
-int EnviaPedido (TPedido* pedido, int restricao_calorica, char* restricao_alimentar);
+int EnviaPedido (TPedido* pedido, int restricao_calorica, char* restricao_alimentar){
+    if (pedido == NULL) {
+        return 1;
+    }
+
+    Celula *aux;
+    int somaCalorias = 0;
+    for(aux = pedido->prim; aux != NULL; aux=aux->prox) {
+        somaCalorias += Calorias(aux->prod);
+    }
+    
+    
+    if (somaCalorias > restricao_calorica) {
+        printf("Pedido não Enviado! Pedido tem mais calorias do que a restricao, tente retirar algum produto!\n");
+        return 0;
+    }
+
+    int ingredientePresente = 0;
+    for(aux = pedido->prim; aux != NULL; aux = aux->prox) {
+        if(VerificaIngrediente(aux->prod, restricao_alimentar)) {
+            printf("nPedido não Enviado! Restricao alimentar no produto: %s", RetornaNome(aux->prod));
+            return 0;
+        }
+    }
+
+    free(aux);
+    free(pedido->dono);
+    free(pedido);
+    return 1;
+}
