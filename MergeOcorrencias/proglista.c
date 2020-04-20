@@ -45,7 +45,7 @@ int main()
     //Neste momento, insere-se os alunos fulano e simone novamente (simulando algum erro)
     InsereAluno (turma2, fulano);
     InsereAluno (turma2, simone);
-    
+
     // Imprime a turma2 com todos os alunos inseridos (2 ocorrencias de fulano e 2 ocorrencias de simone)
     printf ("\n Imprimindo os alunos da Turma2 - com repeticoes de Fulano e Simone: \n");
     Imprime (turma2);
@@ -83,7 +83,7 @@ int main()
     printf ("\n Imprimindo a turma merge (ainda com alunos repetidos): \n");
     Imprime (mix);
     
-    //Retira as ocorrencias duplicadas da lista completa
+    // //Retira as ocorrencias duplicadas da lista completa
     RetiraRepetidos (mix);
     
     //Imprime a lista merge sem repeticoes

@@ -57,6 +57,8 @@ void IncluiProdutoPedido (TPedido* pedido, TProduto* prod) {
         pedido->ult->prox = novoPedido;
         pedido->ult = novoPedido;
     }
+
+
 }
 
 /*----------------------------------------------------------------------
@@ -87,14 +89,9 @@ void ImprimePedido (TPedido* pedido) {
  * pos-condicao: pedido nao contem o produto
  *----------------------------------------------------------------------*/
 void RetiraProdutoPedido (TPedido* pedido, char* prod) {
-    if (pedido == NULL) {
-        return;
-    } 
-
-    TProduto *produto;
     Celula *aux = pedido->prim, *anterior;
 
-    while (aux != NULL && (strcmp(prod, RetornaNome(aux->prod)))){
+    while (aux != NULL && (strcmp(prod, RetornaNome(aux->prod)) != 0)){
         anterior = aux;
         aux = aux->prox;
     }
@@ -103,7 +100,6 @@ void RetiraProdutoPedido (TPedido* pedido, char* prod) {
         return;
     }
 
-    produto = aux->prod;
     if (aux == pedido->prim && aux == pedido->ult) { //Unico elemento
         pedido->prim = NULL;
         pedido->ult = NULL;
@@ -116,7 +112,24 @@ void RetiraProdutoPedido (TPedido* pedido, char* prod) {
         anterior->prox = aux->prox;
     }
 
-    // free(aux);
+    free(aux);
+}
+
+/*----------------------------------------------------------------------
+ * Funcao auxiliar para liberar as celulas do pedido.
+ *----------------------------------------------------------------------*/
+void liberaPedido (TPedido* pedido){
+    Celula *aux1 = pedido->prim,
+           *aux2;
+
+    while (aux1 != NULL) {
+        aux2 = aux1->prox;
+        free(aux1);
+        aux1 = aux2;
+    }
+
+    free(pedido->dono);
+    free(pedido);
 }
 
 //A função envia pedido verifica se há restrição calórica ou restrição alimentar
@@ -143,8 +156,7 @@ int EnviaPedido (TPedido* pedido, int restricao_calorica, char* restricao_alimen
     for(aux = pedido->prim; aux != NULL; aux=aux->prox) {
         somaCalorias += Calorias(aux->prod);
     }
-    
-    
+
     if (somaCalorias > restricao_calorica) {
         printf("Pedido não Enviado! Pedido tem mais calorias do que a restricao, tente retirar algum produto!\n");
         return 0;
@@ -158,8 +170,6 @@ int EnviaPedido (TPedido* pedido, int restricao_calorica, char* restricao_alimen
         }
     }
 
-    free(aux);
-    free(pedido->dono);
-    free(pedido);
+    liberaPedido(pedido);
     return 1;
 }

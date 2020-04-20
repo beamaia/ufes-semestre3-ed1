@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/bea/ufes/semestre-03/ed1/McDonalds/pedido.c
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+produto.h
+/home/bea/ufes/semestre-03/ed1/McDonalds/produto.h
+pedido.h
+/home/bea/ufes/semestre-03/ed1/McDonalds/pedido.h
+
+/home/bea/ufes/semestre-03/ed1/McDonalds/pedido.h
+produto.h
+/home/bea/ufes/semestre-03/ed1/McDonalds/produto.h
+
+/home/bea/ufes/semestre-03/ed1/McDonalds/produto.h
+
