@@ -29,7 +29,7 @@ TAluno* InicializaAluno(char* nome, int matricula);
 /*Insere um aluno na primeira posicao da lista de alunos
  * inputs: aluno a ser inserido na lista (do tipo TAluno) e a lista
  * output: nenhum
- * pre-condicao: aluno n‹o NULL e lista n‹o NULL (mas, a lista pode estar vazia)
+ * pre-condicao: aluno nï¿½o NULL e lista nï¿½o NULL (mas, a lista pode estar vazia)
  * pos-condicao: lista contem o aluno inserido na primeira posicao */
 void InsereAluno (TLista* lista, TAluno* aluno);
 
@@ -48,8 +48,8 @@ TAluno* Retira (TLista* lista, int mat);
 void RetiraRepetidos (TLista* lista);
 
 
-/* Intercala os alunos das turmas 1 e 2 em uma nova lista. Por exemplo, se a turma 1 tiver (a1->a2->a3) e a turma 2 tiver (b1->b2->b3->b4->b5), a funcao deve retornar uma nova lista formada pelos elementos (a1->b1->a2->b2->a3->b3->b4->b5). Se uma das  listas tiver mais elementos que a outra, os elementos excedentes s‹o transferidos na mesma ordem para a nova lista. As listas originais devem ficar vazias (com sentila prim e ult apontando para NULL).
- * inputs: duas listas n‹o nulas (porŽm, podem estar vazias)
+/* Intercala os alunos das turmas 1 e 2 em uma nova lista. Por exemplo, se a turma 1 tiver (a1->a2->a3) e a turma 2 tiver (b1->b2->b3->b4->b5), a funcao deve retornar uma nova lista formada pelos elementos (a1->b1->a2->b2->a3->b3->b4->b5). Se uma das  listas tiver mais elementos que a outra, os elementos excedentes sï¿½o transferidos na mesma ordem para a nova lista. As listas originais devem ficar vazias (com sentila prim e ult apontando para NULL).
+ * inputs: duas listas nï¿½o nulas (porï¿½m, podem estar vazias)
  * output: uma nova lista com os elementos intercalados
  * pre-condicao: listas turma1 e turma2 nao sao NULL (mas podem estar vazias)
  * pos-condicao: lista retornada contem os elementos intercalados. As listas de entrada vazias (apenas com sentinela). */
@@ -58,7 +58,7 @@ TLista* Merge (TLista* turma1, TLista* turma2);
 /* Libera a memoria alocada para o aluno
  * inputs: o aluno do tipo TAluno*
  * output: nenhum
- * pre-condicao: aluno n‹o NULL
+ * pre-condicao: aluno nï¿½o NULL
  * pos-condicao: toda a memoria alocada para o aluno foi liberada (inclusive para o nome) */
 void LiberaAluno (TAluno* aluno);
 

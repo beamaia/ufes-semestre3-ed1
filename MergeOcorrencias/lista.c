@@ -48,6 +48,9 @@ void InsereAluno (TLista* lista, TAluno* aluno) {
     }
 }
 
+/************************
+ * Funcao auxiliar para acessar o valor da. matricula do aluno
+ ************************/
 int RetornaMatricula(TAluno *aluno) {
     return aluno->matricula;
 }
@@ -83,6 +86,10 @@ TAluno* Retira (TLista* lista, int mat) {
     return alunoRetirado;
 }
 
+
+/************************
+ * Funcao auxiliar para verificar se as matriculas sao iguais.
+ ************************/
 int MatriculasIguais (TAluno *aluno1, TAluno *aluno2) {
     if(RetornaMatricula(aluno1) == RetornaMatricula(aluno2)) 
         return 1;
@@ -105,6 +112,7 @@ void RetiraRepetidos (TLista* lista) {
                 aluno = Retira(lista, RetornaMatricula(aux->aluno));
                 break;
             }
+
             aux = aux->prox;
         }
     }
@@ -134,7 +142,6 @@ TLista* Merge (TLista* turma1, TLista* turma2) {
         return novaLista;
     }
 
-    printf("chegou aqui\n");
     //Caso em que as turmas nao estao vazias
     TCelula *auxTurma1, *auxTurma2, *aux;
 
@@ -165,6 +172,14 @@ TLista* Merge (TLista* turma1, TLista* turma2) {
     return novaLista;
 }
 
+void LiberaAluno (TAluno* aluno) {
+    free(aluno->nome);
+    free(aluno);
+}
+
+/************************
+ * Funcao auxiliar para apresentar alunos.
+ ************************/
 void ImprimeAluno(TAluno *aluno) {
     printf("Nome: %s Matricula: %d\n", aluno->nome, aluno->matricula);
 }
@@ -176,11 +191,6 @@ void Imprime (TLista* lista) {
         ImprimeAluno(aux->aluno);
     }
 
-}
-
-void LiberaAluno (TAluno* aluno) {
-    free(aluno->nome);
-    free(aluno);
 }
 
 void LiberaLista (TLista* lista) {
