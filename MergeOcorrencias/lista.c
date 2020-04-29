@@ -69,7 +69,6 @@ TAluno* Retira (TLista* lista, int mat) {
     }
 
     alunoRetirado = aux->aluno;
-
     if (lista->prim == aux && lista->ult == aux) {
         lista->prim = NULL;
         lista->ult = NULL;
@@ -81,8 +80,9 @@ TAluno* Retira (TLista* lista, int mat) {
     } else {
         anterior->prox = aux->prox;
     }
-
+    
     free(aux);
+    
     return alunoRetirado;
 }
 
@@ -102,12 +102,18 @@ void RetiraRepetidos (TLista* lista) {
     }
     
     TCelula *celObservada,
+            *segCelObservada,
             *aux;
     TAluno *aluno;
 
-    for(celObservada = lista->prim; celObservada != NULL; celObservada = celObservada->prox) {
+    celObservada = lista->prim;
+
+    while(celObservada != NULL) {
+        segCelObservada = celObservada->prox;
+
         aux = celObservada->prox;
         while(aux != NULL) {
+            
             if(MatriculasIguais(aux->aluno, celObservada->aluno)) {
                 aluno = Retira(lista, RetornaMatricula(aux->aluno));
                 break;
@@ -115,7 +121,50 @@ void RetiraRepetidos (TLista* lista) {
 
             aux = aux->prox;
         }
+        
+        celObservada = segCelObservada;
     }
+}
+
+//Funcao com erro
+// void RetiraRepetidos (TLista* lista) {
+//     if (lista->prim == NULL) {
+//         return;
+//     }
+    
+//     TCelula *celObservada,
+//             *aux,
+//             *aux2;
+//     TAluno *aluno;
+
+//     for(celObservada = lista->prim; celObservada != NULL; celObservada = celObservada->prox) {
+//         printf("%d\n", celObservada->aluno->matricula);
+//         aux = celObservada->prox;
+//         while(aux != NULL) {
+//             aux2 = aux->prox;
+//             if(MatriculasIguais(aux->aluno, celObservada->aluno)) {
+//                 aluno = Retira(lista, RetornaMatricula(aux->aluno));
+//                 aux = aux2;
+//                 break;
+//             }
+
+//             aux = aux2;
+//         }
+//     }
+// }
+
+void InsereAlunoMerge(TLista* lista, TAluno *aluno) {
+    TCelula *novoAluno = (TCelula *) malloc(sizeof(TCelula));
+   
+    novoAluno->aluno = aluno;
+    novoAluno->prox = lista->prim;
+
+    lista->prim = novoAluno; 
+
+    if(lista->ult == NULL) {
+        lista->ult = lista->prim;
+    }
+
 }
 
 TLista* Merge (TLista* turma1, TLista* turma2) {
@@ -123,8 +172,6 @@ TLista* Merge (TLista* turma1, TLista* turma2) {
 
     //Caso em que as duas turmas estao vazias
     if (turma1->prim == NULL && turma2->prim == NULL) {
-        novaLista->prim = NULL;
-        novaLista->ult = NULL;
         return novaLista;
     //Caso em que a primeira turma esta vazia
     } else if (turma1->prim == NULL) {
@@ -151,14 +198,14 @@ TLista* Merge (TLista* turma1, TLista* turma2) {
 
     while (auxTurma1 != NULL || auxTurma2 != NULL) {
         if (auxTurma1 != NULL) {
-            InsereAluno(novaLista, auxTurma1->aluno);
+            InsereAlunoMerge(novaLista, auxTurma1->aluno);
             aux = auxTurma1->prox;
             free(auxTurma1);
             auxTurma1 = aux;
         }
 
         if (auxTurma2 != NULL) {
-            InsereAluno(novaLista, auxTurma2->aluno);
+            InsereAlunoMerge(novaLista, auxTurma2->aluno);
             aux = auxTurma2->prox;
             free(auxTurma2);
             auxTurma2 = aux;
